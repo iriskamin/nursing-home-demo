@@ -1,0 +1,610 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: Nursing Home Assistant
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/cohere:0.0.8@1456818eb78f25c1a25e91809cecbd78e5523d39868dcb78607e625913b5e4fe
+    version: null
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/openai:0.2.8@aae2be0913b8c6f0b80cff58e08d7a8b4c214569b41778413fcaea204561ff16
+    version: null
+kind: app
+version: 0.5.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 50
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        sourceType: llm
+        targetType: answer
+      id: llm-answer
+      selected: false
+      source: llm
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: llm
+      id: 1771771015392-source-1771771614361-target
+      selected: false
+      source: '1771771015392'
+      sourceHandle: source
+      target: '1771771614361'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: if-else
+      id: 1771771614361-source-1771772005744-target
+      selected: false
+      source: '1771771614361'
+      sourceHandle: source
+      target: '1771772005744'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: knowledge-retrieval
+      id: 1771772005744-074a0602-4e36-411d-81e8-662dbe4e995d-1771772293204-target
+      selected: false
+      source: '1771772005744'
+      sourceHandle: 074a0602-4e36-411d-81e8-662dbe4e995d
+      target: '1771772293204'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: knowledge-retrieval
+      id: 1771772005744-false-1771772293204-target
+      selected: false
+      source: '1771772005744'
+      sourceHandle: 'false'
+      target: '1771772293204'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1771772005744-true-1771773414741-target
+      selected: false
+      source: '1771772005744'
+      sourceHandle: 'true'
+      target: '1771773414741'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1771772005744-false-1771773414741-target
+      selected: false
+      source: '1771772005744'
+      sourceHandle: 'false'
+      target: '1771773414741'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: http-request
+      id: 1771773414741-source-1771773862854-target
+      selected: false
+      source: '1771773414741'
+      sourceHandle: source
+      target: '1771773862854'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: http-request
+        targetType: llm
+      id: 1771773862854-source-llm-target
+      selected: false
+      source: '1771773862854'
+      sourceHandle: source
+      target: llm
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: llm
+      id: 1771772293204-source-llm-target
+      selected: false
+      source: '1771772293204'
+      sourceHandle: source
+      target: llm
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: User Input
+        type: start
+        variables: []
+      height: 72
+      id: '1771771015392'
+      position:
+        x: 80
+        y: 282
+      positionAbsolute:
+        x: 80
+        y: 282
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1771772293204'
+          - result
+        memory:
+          query_prompt_template: '{{#sys.query#}}
+
+
+            {{#sys.files#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: false
+            size: 10
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-4o-mini
+          provider: langgenius/openai/openai
+        prompt_template:
+        - id: 3ad69eb1-0c2e-492e-a21d-5871d8bdc840
+          role: system
+          text: "You are an expert data assistant specializing in US nursing home\
+            \ quality, safety, and regulatory data. You help users explore and understand\
+            \ information about nursing home providers, inspection deficiencies, quality\
+            \ measures, penalties, and star ratings across the United States.\n\n\
+            You have access to a structured database of nursing home information sourced\
+            \ from CMS (Centers for Medicare & Medicaid Services). Your job is to\
+            \ answer user questions accurately by selecting the right retrieval method,\
+            \ constructing correct queries, and presenting results clearly.\n\n==============================\n\
+            RETRIEVAL METHODS\n==============================\n\nYou have three retrieval\
+            \ strategies. Choose the one that best fits the user's question.\n\n1.\
+            \ KNOWLEDGE BASE (Hybrid Search)\n   Use this for conceptual, qualitative,\
+            \ or narrative questions about care quality, violations, and incidents.\n\
+            \   Examples:\n   - \"Which facilities had problems with infection control?\"\
+            \n   - \"Show me nursing homes cited for medication errors\"\n   - \"\
+            Find deficiencies related to patient abuse or neglect\"\n   - \"What kinds\
+            \ of staffing violations have been documented?\"\n   The Knowledge Base\
+            \ performs hybrid search (semantic + keyword) over deficiency descriptions\
+            \ written by inspectors. It returns the most relevant narrative passages\
+            \ along with associated facility information.\n\n2. SUPABASE SQL TOOL\n\
+            \   Use this for structured, numeric, or filter-based questions involving\
+            \ states, cities, star ratings, penalty amounts, dates, counts, rankings,\
+            \ and comparisons.\n   Examples:\n   - \"List all 1-star nursing homes\
+            \ in Florida\"\n   - \"Which facilities have the highest fines?\"\n  \
+            \ - \"How many nursing homes in California have a 5-star overall rating?\"\
+            \n   - \"Show providers in New York ordered by number of incidents\"\n\
+            \   The Supabase tool queries the structured database directly using REST\
+            \ API filter syntax.\n\n3. BOTH (Knowledge Base + Supabase SQL Tool)\n\
+            \   Use this for hybrid queries that combine qualitative concepts with\
+            \ numeric filters or structured data.\n   Examples:\n   - \"Find 1-star\
+            \ facilities in Texas that were cited for fall prevention issues\"\n \
+            \  - \"Which 5-star nursing homes in Florida have deficiencies related\
+            \ to nutrition?\"\n   - \"Show me facilities with fines over $100,000\
+            \ that had infection control problems\"\n   When using both methods, first\
+            \ use the Supabase tool to filter by structured criteria (state, rating,\
+            \ fines, etc.), then use the Knowledge Base to search for the qualitative\
+            \ concept among those results, or vice versa. Clearly explain what each\
+            \ method contributed.\n\n==============================\nDATABASE SCHEMA\n\
+            ==============================\n\nTABLE: providers\n  federal_provider_number\
+            \  TEXT       Primary key. Unique CMS identifier for each facility.\n\
+            \  provider_name            TEXT       Name of the nursing home facility.\n\
+            \  city                     TEXT       City where the facility is located.\n\
+            \  state                    TEXT       Two-letter US state code (e.g.\
+            \ 'FL', 'CA', 'TX', 'NY').\n  overall_rating           INTEGER    Overall\
+            \ Five Star rating (1 to 5). 1 = much below average, 5 = much above average.\n\
+            \  health_inspection_rating INTEGER    Health inspection star rating (1\
+            \ to 5).\n  staffing_rating          INTEGER    Staffing star rating (1\
+            \ to 5).\n  total_amount_of_fines_in_dollars FLOAT  Total dollar amount\
+            \ of federal fines imposed on the facility.\n  number_of_facility_reported_incidents\
+            \ INTEGER  Count of incidents reported by the facility itself.\n\nTABLE:\
+            \ deficiencies\n  id                        SERIAL    Auto-incrementing\
+            \ primary key.\n  federal_provider_number   TEXT      Foreign key referencing\
+            \ providers.federal_provider_number.\n  deficiency_description    TEXT\
+            \      Full narrative text written by the inspector describing the deficiency.\
+            \ This column is indexed in the Knowledge Base for semantic and keyword\
+            \ search.\n  deficiency_category       TEXT      Category or tag classifying\
+            \ the type of deficiency.\n  scope_severity_code       TEXT      CMS scope\
+            \ and severity code indicating how widespread and serious the deficiency\
+            \ is.\n  survey_date               DATE      Date the inspection survey\
+            \ was conducted.\n\nTABLE: quality_measures\n  id                    \
+            \    SERIAL    Auto-incrementing primary key.\n  federal_provider_number\
+            \   TEXT      Foreign key referencing providers.federal_provider_number.\n\
+            \  measure_description       TEXT      Description of the quality measure\
+            \ being reported.\n  score                     FLOAT     The facility's\
+            \ score on this measure.\n  national_average          FLOAT     The national\
+            \ average score for comparison.\n\nRELATIONSHIPS:\n  - deficiencies.federal_provider_number\
+            \ -> providers.federal_provider_number\n  - quality_measures.federal_provider_number\
+            \ -> providers.federal_provider_number\n\n==============================\n\
+            SUPABASE API FILTER SYNTAX\n==============================\n\nWhen constructing\
+            \ Supabase REST API queries, use the following filter operators:\n\n \
+            \ Equals:              column=eq.VALUE\n  Not equals:          column=neq.VALUE\n\
+            \  Greater than:        column=gt.VALUE\n  Less than:           column=lt.VALUE\n\
+            \  Greater or equal:    column=gte.VALUE\n  Less or equal:       column=lte.VALUE\n\
+            \  Text search:         column=like.*TERM*\n  Case-insensitive:    column=ilike.*TERM*\n\
+            \  Ordering ascending:  order=column.asc\n  Ordering descending: order=column.desc\n\
+            \nIMPORTANT RULES FOR SUPABASE QUERIES:\n  - Always include select=* or\
+            \ specify the columns you need (e.g. select=provider_name,state,overall_rating).\n\
+            \  - Always add limit=20 unless the user explicitly asks for more results.\n\
+            \  - State values must be uppercase two-letter codes: state=eq.FL (not\
+            \ state=eq.Florida).\n  - Star ratings are integers from 1 to 5: overall_rating=eq.1,\
+            \ staffing_rating=gte.4.\n  - Fines are stored as floats: total_amount_of_fines_in_dollars=gt.100000.\n\
+            \  - Dates use ISO format: survey_date=gte.2023-01-01.\n  - To combine\
+            \ multiple filters, include them all as separate parameters in the same\
+            \ request.\n  - When counting results, use the appropriate count header\
+            \ or retrieve results and count them.\n  - For ranking queries (e.g. \"\
+            top 10 by fines\"), use order=column.desc and limit=10.\n\n==============================\n\
+            RESPONSE FORMAT\n==============================\n\nFollow these rules\
+            \ for every response:\n\n1. STATE THE RETRIEVAL METHOD: Always begin your\
+            \ answer by stating which retrieval method(s) you used (Knowledge Base,\
+            \ Supabase SQL Tool, or Both) and briefly explain why that method was\
+            \ appropriate for the question.\n\n2. CITE FACILITY DETAILS: For each\
+            \ facility mentioned in your answer, include:\n   - Facility name (provider_name)\n\
+            \   - Location (city, state)\n   - The key finding or data point relevant\
+            \ to the question\n\n3. COMBINING METHODS: If you used both retrieval\
+            \ methods, clearly describe what each method contributed to the final\
+            \ answer. For example: \"The Supabase tool identified 15 facilities in\
+            \ Florida with a 1-star rating. The Knowledge Base then found that 3 of\
+            \ these had deficiency narratives mentioning fall prevention issues.\"\
+            \n\n4. NO INVENTED DATA: Only mention facilities, ratings, fines, deficiencies,\
+            \ or any other data that appear in the retrieved results. Never fabricate,\
+            \ guess, or hallucinate facility names, numbers, or findings. If a piece\
+            \ of information was not returned by the tools, do not include it.\n\n\
+            5. NO RESULTS: If no results are found, explain clearly why (e.g. no matching\
+            \ facilities in that state, no deficiencies matching that keyword, etc.)\
+            \ and suggest how the user might refine their query (e.g. broadening the\
+            \ search terms, trying a different state, adjusting filters).\n\n6. CLARITY\
+            \ AND STRUCTURE: Present results in a clear, organized manner. Use numbered\
+            \ lists or structured groupings when showing multiple facilities. Summarize\
+            \ patterns or trends when applicable.\n\n7. CONTEXT: When relevant, provide\
+            \ brief context about what star ratings mean, what scope/severity codes\
+            \ indicate, or how quality measures compare to national averages, to help\
+            \ the user interpret the data.\n\n  IMPORTANT: The SQL results may only\
+            \ contain a sample of matching records (up to 200 rows) due to API limits.\
+            \ When presenting   results, always mention that these are representative\
+            \ examples and more facilities may exist that match the criteria. If \
+            \    the user needs complete data, suggest they refine their query with\
+            \ more specific filters.   \n\n  User question: {{#sys.query#}}\n  Knowledge\
+            \ base results: {{#context#}}      \n  SQL results: / {{#1771773862854.body#}}\n\
+            \n  Synthesize a clear, helpful answer. Cite which retrieval method(s)\
+            \ you used and why.    \n  Only mention facilities that appear in the\
+            \ retrieved results — do not invent any names  \n  or data.\n"
+        selected: false
+        title: LLM - Response
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: llm
+      position:
+        x: 1490.6495614691098
+        y: 479.81406004356774
+      positionAbsolute:
+        x: 1490.6495614691098
+        y: 479.81406004356774
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: '{{#llm.text#}}'
+        selected: false
+        title: Answer
+        type: answer
+        variables: []
+      height: 101
+      id: answer
+      position:
+        x: 1828.2747846124448
+        y: 479.81406004356774
+      positionAbsolute:
+        x: 1828.2747846124448
+        y: 479.81406004356774
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            max_tokens: 10
+            temperature: 0.7
+          mode: chat
+          name: gpt-4o-mini
+          provider: langgenius/openai/openai
+        prompt_template:
+        - id: c870875f-af1f-4314-8587-8346506a9333
+          role: system
+          text: "  Classify this user query. Output ONLY one of: SQL, VECTOR, HYBRID\n\
+            \n  SQL = questions about ratings, fines, counts, rankings, geographic\
+            \ filters, dates,      \n  numeric comparisons\n  VECTOR = questions about\
+            \ care quality narratives, violation descriptions,\n  conceptual/emotional\
+            \ language\n  HYBRID = questions combining BOTH numeric filters AND qualitative\
+            \ concepts\n"
+        selected: false
+        title: LLM- Query Classifier
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1771771614361'
+      position:
+        x: 378.6804920892272
+        y: 282
+      positionAbsolute:
+        x: 378.6804920892272
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: 66ee217a-fef2-4b83-a3fd-61858f7259f6
+            value: SQL
+            varType: string
+            variable_selector:
+            - '1771771614361'
+            - text
+          id: 'true'
+          logical_operator: and
+        - case_id: 074a0602-4e36-411d-81e8-662dbe4e995d
+          conditions:
+          - comparison_operator: contains
+            id: bd76c668-287e-4221-b18b-8ea9575d49dd
+            value: VECTOR
+            varType: string
+            variable_selector:
+            - '1771771614361'
+            - text
+          id: 074a0602-4e36-411d-81e8-662dbe4e995d
+          logical_operator: and
+        desc: Type of Query
+        selected: false
+        title: IF/ELSE
+        type: if-else
+      height: 199
+      id: '1771772005744'
+      position:
+        x: 639.0952547660405
+        y: 267.4854129814982
+      positionAbsolute:
+        x: 639.0952547660405
+        y: 267.4854129814982
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        dataset_ids:
+        - bqU4GyYYRjEzIIzYBaUVCBSbu2NfWcP3qjZV4VsUaWM587udq1hLBrJS2VSwYb0o
+        multiple_retrieval_config:
+          reranking_enable: true
+          reranking_mode: reranking_model
+          reranking_model:
+            model: rerank-english-v3.0
+            provider: langgenius/cohere/cohere
+          top_k: 4
+        query_attachment_selector: []
+        query_variable_selector:
+        - sys
+        - query
+        retrieval_mode: multiple
+        selected: false
+        title: Knowledge Retrieval
+        type: knowledge-retrieval
+      height: 89
+      id: '1771772293204'
+      position:
+        x: 1177.3657026475632
+        y: 479.81406004356774
+      positionAbsolute:
+        x: 1177.3657026475632
+        y: 479.81406004356774
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-4o-mini
+          provider: langgenius/openai/openai
+        prompt_template:
+        - id: c034b936-a3a3-4935-af43-725109f30360
+          role: system
+          text: "You convert user questions into Supabase REST API URLs. Output\
+            \ ONLY the full URL, nothing else.\n\nBase URL: https://fdxduktfejmwivsuzonx.supabase.co/rest/v1\n\
+            \nAvailable tables and columns:\n- /providers: federal_provider_number,\
+            \ provider_name, city, state, overall_rating, health_inspection_rating,\
+            \ staffing_rating, total_amount_of_fines_in_dollars, number_of_facility_reported_incidents\n\
+            - /quality_measures: federal_provider_number, measure_description, score,\
+            \ national_average\n\nCRITICAL: NEVER query the /deficiencies table.\
+            \ Deficiency descriptions, violation narratives, inspection findings,\
+            \ and any qualitative text are searched through the Knowledge Base (vector\
+            \ search), NOT through SQL. The SQL path handles ONLY structured numeric\
+            \ data from /providers and /quality_measures.\n\nFilter syntax: column=eq.VALUE,\
+            \ column=gt.VALUE, column=lt.VALUE, column=gte.VALUE, column=lte.VALUE\n\
+            Ordering: order=column.desc or order=column.asc\nAlways include select=*\
+            \ and limit=20\nDo NOT use ilike or like filters — text search belongs\
+            \ in the Knowledge Base, not here.\nAlways append this to every URL:\
+            \ &apikey=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZkeGR1a3RmZWptd2l2c3V6b254Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE3NDkwMjAsImV4cCI6MjA4NzMyNTAyMH0.P9oz5089_Q8ngsUj2j-MEKctGSTWK3dZBmnKb99o24E\n\
+            State values must be uppercase 2-letter codes (TX, CA, FL, NY)\n\nIMPORTANT:\
+            \ This API does NOT support aggregation (no COUNT, AVG, SUM, GROUP BY).\
+            \ For questions about averages, rankings, or counts across groups, fetch\
+            \ the relevant raw data with select=state,total_amount_of_fines_in_dollars\
+            \ (or whichever columns are needed) and use limit=200 so the answer LLM\
+            \ can compute the aggregation from the raw data.\n\nFor HYBRID queries\
+            \ (combining structured filters with qualitative concepts), extract ONLY\
+            \ the structured part for the SQL URL. For example, if the user asks\
+            \ about \"1-star facilities in Texas with fall violations\", build the\
+            \ URL for the structured part only (state=TX, rating=1). The qualitative\
+            \ part (fall violations) will be handled separately by the Knowledge\
+            \ Base.\n\nExample input: \"5-star facilities in Texas\"\nExample output:\
+            \ https://fdxduktfejmwivsuzonx.supabase.co/rest/v1/providers?select=*&state=eq.TX&overall_rating=eq.5&limit=20&apikey=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZkeGR1a3RmZWptd2l2c3V6b254Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE3NDkwMjAsImV4cCI6MjA4NzMyNTAyMH0.P9oz5089_Q8ngsUj2j-MEKctGSTWK3dZBmnKb99o24E\n\
+            \nExample input: \"Which state has the highest average fines?\"\nExample\
+            \ output: https://fdxduktfejmwivsuzonx.supabase.co/rest/v1/providers?select=state,total_amount_of_fines_in_dollars&limit=1000&apikey=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZkeGR1a3RmZWptd2l2c3V6b254Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE3NDkwMjAsImV4cCI6MjA4NzMyNTAyMH0.P9oz5089_Q8ngsUj2j-MEKctGSTWK3dZBmnKb99o24E\n\
+            \nExample input: \"Low-rated facilities in Ohio with medication errors\"\
+            \nExample output: https://fdxduktfejmwivsuzonx.supabase.co/rest/v1/providers?select=*&state=eq.OH&overall_rating=lte.2&limit=20&apikey=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZkeGR1a3RmZWptd2l2c3V6b254Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE3NDkwMjAsImV4cCI6MjA4NzMyNTAyMH0.P9oz5089_Q8ngsUj2j-MEKctGSTWK3dZBmnKb99o24E\n\
+            \  User question:  {{#sys.query#}}   "
+        selected: false
+        title: LLM SQL Query Builder
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1771773414741'
+      position:
+        x: 930.1790537274607
+        y: 98.75718381377467
+      positionAbsolute:
+        x: 930.1790537274607
+        y: 98.75718381377467
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data: []
+          type: none
+        headers: ''
+        method: get
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: Supabase API call (HTTP Request)
+        type: http-request
+        url: '{{#1771773414741.text#}}'
+        variables: []
+      height: 122
+      id: '1771773862854'
+      position:
+        x: 1194.7611279712664
+        y: 98.75718381377467
+      positionAbsolute:
+        x: 1194.7611279712664
+        y: 98.75718381377467
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    viewport:
+      x: 98.57255584043264
+      y: 40.78857033419325
+      zoom: 0.7578582832552002
+  rag_pipeline_variables: []
