@@ -48,7 +48,7 @@ python evaluate_demo.py --mock       # Run with synthetic responses (no API call
 python evaluate_demo.py --delay 3    # Custom delay between API calls
 ```
 
-**Outputs:***
+**Outputs:**
 - `outputs/eval_runs/eval_YYYYMMDD_HHMMSS.csv` — per-query detailed results
 - `outputs/eval_runs/eval_YYYYMMDD_HHMMSS.txt` — formatted summary report with metrics and confusion matrix
 
